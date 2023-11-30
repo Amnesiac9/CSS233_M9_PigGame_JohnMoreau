@@ -1,27 +1,33 @@
-﻿using CSS233_M9_PigGame_JohnMoreau.Models;
+﻿/*
+* John Moreau
+* CSS233
+* 11/29/2023
+*/
+
+using CSS233_M9_PigGame_JohnMoreau.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace CSS233_M9_PigGame_JohnMoreau.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public IActionResult Index(PigGame game)
         {
-            _logger = logger;
-        }
+            if (game == null)
+            {
+                return View(new PigGame());
+            }
 
-        public IActionResult Index()
-        {
+
+
+
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,4 +1,11 @@
-﻿namespace CSS233_M9_PigGame_JohnMoreau.Models
+﻿/*
+* John Moreau
+* CSS233
+* 11/29/2023
+*/
+
+
+namespace CSS233_M9_PigGame_JohnMoreau.Models
 {
     public class PigGame
     {

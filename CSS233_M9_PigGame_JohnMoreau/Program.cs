@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Add services to the container. // Add Json Serializer
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(); // This is weird, why not make it simple and just be builder.Services.AddNewtonsoftJson();
 
 var app = builder.Build();
 
