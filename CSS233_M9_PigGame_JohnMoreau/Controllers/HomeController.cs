@@ -14,16 +14,17 @@ namespace CSS233_M9_PigGame_JohnMoreau.Controllers
     public class HomeController : Controller
     {
 
-        public IActionResult Index(PigGame game)
+        public IActionResult Index()
         {
-            if (game == null)
-            {
-                return View(new PigGame());
-            }
+
+            var game = HttpContext.Session.GetObject<PigGame>("game") ?? new PigGame();
 
 
 
 
+
+
+            HttpContext.Session.SetObject("game", game);
             return View();
         }
 

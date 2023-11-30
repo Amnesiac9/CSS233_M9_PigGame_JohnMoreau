@@ -5,15 +5,18 @@
 * 11/29/2023
 */
 *@
-
+@{
+    var game = Context.Session.GetObject<PigGame>("game");
+}
 
 <div class="container">
     <div class="row mt-4">
         <ul class="list-group col-7">
             <li class="list-group-item d-flex justify-content-between"> <!-- SOURCE: https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors -->
                 <div class="">
-                    Player 1:<br /> <br />
-                    Player 2:
+                    Player 1: @game?.Player1Score;
+                    <br /> <br />
+                    Player 2: @game?.Player2Score
                 </div>
                 <div class="">
                     <button class="btn bg-light btn-outline-secondary text-dark">New Game</button>

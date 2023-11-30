@@ -5,6 +5,8 @@
 */
 
 
+using Newtonsoft.Json;
+
 namespace CSS233_M9_PigGame_JohnMoreau.Models
 {
     public class PigGame
@@ -14,13 +16,13 @@ namespace CSS233_M9_PigGame_JohnMoreau.Models
 
         public int Player2Score { get; set; }
 
-        public bool PlayerTurn { get; set; }
+        public int CurrentPlayer { get; set; }
 
         public int CurrentTotal { get; set; }
 
 
 
-
+        [JsonIgnore]
         private Random random = new Random();
 
         // Define a function to roll a D6
@@ -33,7 +35,7 @@ namespace CSS233_M9_PigGame_JohnMoreau.Models
         {
             Player1Score = 0;
             Player2Score = 0;
-            PlayerTurn = false;
+            CurrentPlayer = 1;
             CurrentTotal = 0;
         }
 
