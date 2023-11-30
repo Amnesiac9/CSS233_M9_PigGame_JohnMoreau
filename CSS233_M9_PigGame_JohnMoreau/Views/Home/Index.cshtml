@@ -1,0 +1,45 @@
+﻿
+
+@{
+    ViewData["Title"] = "Let's Play PIG!";
+}
+
+<div class="container">
+    <div class="row mt-4">
+        <ul class="list-group col-7">
+            <li class="list-group-item d-flex justify-content-between"> <!-- SOURCE: https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors -->
+                <div class="">
+                    Player 1:<br /> <br />
+                    Player 2:
+                </div>
+                <div class="">
+                    <button class="btn bg-light btn-outline-secondary text-dark">New Game</button>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="">
+                    <p><strong>Player 1's turn</strong></p>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <div class="ml">
+                        <button class="btn bg-secondary text-light">Roll</button>
+                        <button class="btn bg-light btn-outline-secondary m-1">Hold</button>
+                    </div>
+                    <div class="">
+                        Die:
+                    </div>
+                    <div class="">
+                        Total:
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group col-5">
+            <li class="list-group-item">First player to 20 wins.</li>
+            <li class="list-group-item">Players take turns rolling the dice.</li>
+            <li class="list-group-item">Turn ends when player rolls a 1 or chooses to hold.</li>
+            <li class="list-group-item">If player rolls a 1, they lose all points earned during that turn.</li>
+            <li class="list-group-item">If a player holds, points earned during that turn are added to their total.</li>
+        </ul>
+    </div>
+</div>
