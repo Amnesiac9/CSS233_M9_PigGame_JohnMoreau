@@ -16,16 +16,57 @@ namespace CSS233_M9_PigGame_JohnMoreau.Controllers
 
         public IActionResult Index()
         {
+            // Tried this first, but was causing page refreshes to re-do the button press.
+            //var session = new PigGameSession(HttpContext.Session);
+            //var game = session.GetGame();
 
-            var game = HttpContext.Session.GetObject<PigGame>("game") ?? new PigGame();
+            //switch (button)
+            //{
+            //    case "Roll":
+            //        game.Roll();
+            //        break;
+            //    case "Hold":
+            //        game.Hold();
+            //        break;
+            //    case "NewGame":
+            //        game.ResetGame();
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            //session.SetGame(game);
 
 
+            // No longer needed since we can use coalescing null operator to check for game object in the index.cshtml
+            //if (HttpContext.Session.GetObject<PigGame>("game") == null)
+            //{
+            //    HttpContext.Session.SetObject("game", new PigGame());
+            //}
 
-
-
-
-            HttpContext.Session.SetObject("game", game);
             return View();
+        }
+
+        public IActionResult Roll()
+        {
+            var session = new PigGameSession(HttpContext.Session);
+            session.Roll();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Hold()
+        {
+            var session = new PigGameSession(HttpContext.Session);
+            session.Hold();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult NewGame()
+        {
+            var session = new PigGameSession(HttpContext.Session);
+            session.NewGame();
+
+            return RedirectToAction("Index");
         }
 
 

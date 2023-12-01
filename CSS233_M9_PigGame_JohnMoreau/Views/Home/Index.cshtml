@@ -6,50 +6,85 @@
 */
 *@
 @{
-    var game = Context.Session.GetObject<PigGame>("game");
+    var game = Context.Session.GetObject<PigGame>("game") ?? new PigGame(); // Check for null using Coalescing null operator
+    var disabledCheck = game.GameOver ? "disabled" : ""; // Check if our buttons should have the disabled class
+    var newGameButtonStyle = game.GameOver || game.CurrentRoll == 0 ? "btn-primary" : "btn-secondary"; // style class for new game button 
+    var currentPlayerBackground = game.CurrentPlayer == 1 ? "alert-primary" : "alert-success";
+    var currentPlayerButton = game.CurrentPlayer == 1 ? "btn-primary" : "btn-success";
 }
 
 <div class="container">
     <div class="row mt-4">
-        <ul class="list-group col-7">
-            <li class="list-group-item d-flex justify-content-between"> <!-- SOURCE: https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors -->
-                <div class="">
-                    Player 1: @game?.Player1Score;
-                    <br /> <br />
-                    Player 2: @game?.Player2Score
-                </div>
-                <div class="">
-                    <button class="btn bg-light btn-outline-secondary text-dark">New Game</button>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="">
-                    <p><strong>Player 1's turn</strong></p>
-                </div>
-                <div class="row">
-                    <div class="d-flex col-5">
-                        <div class="ml">
-                            <button class="btn bg-secondary text-light">Roll</button>
-                            <button class="btn bg-light btn-outline-secondary m-1">Hold</button>
+        <div class="col-7">
+            <ul class="list-group ">
+                <li class="list-group-item">
+                    <div class="alert-light text-center">
+                       <strong>Game Score</strong>
+                    </div>
+                    <div class="d-flex justify-content-between"> <!-- SOURCE: https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors -->
+                        <div class="">
+                            <h5><span class="badge bg-primary m-3">Player 1:</span>@game?.Player1Score</h5>
+                            <h5><span class="badge bg-success m-3">Player 2:</span>@game?.Player2Score</h5>
+                        </div>
+                        <div class="">
+                            <a asp-action="NewGame" asp-controller="Home" class="btn @newGameButtonStyle">New Game</a>
                         </div>
                     </div>
-                    <div class="d-flex col-7 row">
-                        <div class="col-6">
-                            Die:
-                        </div>
-                        <div class="col-6">
-                            Total:
-                        </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="@currentPlayerBackground">
+                        <p class=""><strong>Player @(game?.CurrentPlayer)'s turn</strong></p>
                     </div>
+                    <div class="d-flex justify-content-between ms-1 me-5">
+                        
+                        <div class="m-2">
+                            <a asp-action="Roll" asp-controller="Home" class="btn @currentPlayerButton @disabledCheck">Roll</a>
+                            <a asp-action="Hold" asp-controller="Home" class="btn btn-warning @disabledCheck">Hold</a>
+                        </div>
+                        <div class="mt-2 me-3">
+                            @*@game?.CurrentRoll*@ <img class="img-small" src="~/img/dice@(game?.CurrentRoll.ToString()).png" alt="Dice Image" />
+                        </div>
+                        <div class="m-2 me-3">
+                            Total: @game?.CurrentTotal
+                        </div>
+
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="alert-light text-center">
+                        <strong>Roll History</strong>
+                    </div>
+                    <div class="pb-3">
+                        @if (game?.RollHistory != null)
+                        {
+                            @string.Join(", ", game.RollHistory);
+                        }
+                    </div>
+                </li>
+            </ul>
+            @if (game?.CurrentRoll == 1)
+            {
+                <div class="alert alert-warning">
+                    Rolled a 1, current points lost. Player @game?.CurrentPlayer's turn!
                 </div>
-            </li>
-        </ul>
-        <ul class="list-group col-5">
-            <li class="list-group-item">First player to 20 wins.</li>
-            <li class="list-group-item">Players take turns rolling the dice.</li>
-            <li class="list-group-item">Turn ends when player rolls a 1 or chooses to hold.</li>
-            <li class="list-group-item">If player rolls a 1, they lose all points earned during that turn.</li>
-            <li class="list-group-item">If a player holds, points earned during that turn are added to their total.</li>
-        </ul>
+            }
+        </div>
+        <div class="col-5">
+            <ul class="list-group ">
+                <li class="list-group-item">First player to 20 wins.</li>
+                <li class="list-group-item">Players take turns rolling the dice.</li>
+                <li class="list-group-item">Turn ends when player rolls a 1 or chooses to hold.</li>
+                <li class="list-group-item">If player rolls a 1, they lose all points earned during that turn.</li>
+                <li class="list-group-item">If a player holds, points earned during that turn are added to their total.</li>
+            </ul>
+        </div>
     </div>
+    @if(game?.GameOver == true)
+    {
+        <div class="alert @currentPlayerBackground mt-3">
+            Player @game?.CurrentPlayer Wins!
+        </div>
+    }
+    
 </div>
+

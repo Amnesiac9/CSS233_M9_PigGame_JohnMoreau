@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.img-small {
+    width: 32px;
+    height: auto;
+}
+
+.text-grey {
+    color: grey !important;
+    text-decoration: none;
+}
