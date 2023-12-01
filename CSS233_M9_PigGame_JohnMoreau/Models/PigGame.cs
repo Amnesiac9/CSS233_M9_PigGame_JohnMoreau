@@ -4,7 +4,6 @@
 * 11/29/2023
 */
 
-
 using Newtonsoft.Json;
 
 namespace CSS233_M9_PigGame_JohnMoreau.Models

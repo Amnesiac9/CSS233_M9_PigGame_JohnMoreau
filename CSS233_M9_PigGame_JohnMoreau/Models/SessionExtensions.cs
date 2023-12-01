@@ -1,6 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+* John Moreau
+* CSS233
+* 11/29/2023
+*/
+
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
+
 
 namespace CSS233_M9_PigGame_JohnMoreau.Models
 {
